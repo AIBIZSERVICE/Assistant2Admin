@@ -73,10 +73,8 @@ def main():
                     st.write("**Summary** : "+summary)
 
             # Get the answer
-            combined_doc = combined_text(relevant_docs)
-            embeddings=create_embeddings_load_data()
-            db=push_to_store(embeddings,combined_doc)            
-            answer = answer_question(enquiry, db)
+            combined_doc = combined_text(relevant_docs)          
+            answer = answer_question(enquiry, combined_doc)
             st.write(answer)
             st.success("J.A.R.V.I.S: Hope I am able to help you in respond to your client effectively ❤️ ")
 
