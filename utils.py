@@ -77,6 +77,17 @@ def combined_doc(relevant_docs):
         text = text + str(relevant_docs[item])
     return text
 
+
+# LLM Q&A Code
+from langchain.chains.question_answering import load_qa_chain
+from langchain.schema import (
+    AIMessage,
+    HumanMessage,
+    SystemMessage
+)
+llm = OpenAI()
+chain = load_qa_chain(llm, chain_type="stuff")
+
 # This function will help us get the answer from the relevant docs matching input text
 def question_answer(combined_doc, enquiry):
     answer = chain.run(input_documents=combined_doc, question=enquiry)
