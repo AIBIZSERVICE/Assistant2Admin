@@ -51,30 +51,30 @@ def main():
             db=push_to_store(embeddings,docs)
 
             # Fecth relavant documents from Vector Store
-            relavant_docs=get_similar_docs(enquiry,document_count,db, embeddings,st.session_state['unique_id'])
+            relevant_docsvant_docs=get_similar_docs(enquiry,document_count,db, embeddings,st.session_state['unique_id'])
 
-            #st.write(relavant_docs)
+            #st.write(relevant_docs)
 
             # Introducing a line separator
             st.write(":heavy_minus_sign:" * 30)
 
-            # For each item in relavant docs - we are displaying some info of it on the UI
-            for item in range(len(relavant_docs)):
+            # For each item in relevant docs - we are displaying some info of it on the UI
+            for item in range(len(relevant_docs)):
                 
                 st.subheader("👉 "+str(item+1))
 
                 # Displaying Filepath
-                st.write("**File** : "+relavant_docs[item].metadata['name'])
+                st.write("**File** : "+relevant_docs[item].metadata['name'])
 
                 # Introducing Expander feature
                 with st.expander('Show me 👀'): 
                     
                     # Gets the summary of the current item using 'get_summary' function that we have created which uses LLM & Langchain chain
-                    summary = get_summary(relavant_docs[item])
+                    summary = get_summary(relevant_docs[item])
                     st.write("**Summary** : "+summary)
 
             # Get the answer
-                combined_doc = combined_text(relavant_docs)
+                combined_doc = combined_text(relevant_docs)
                 answer = answer_question(enquiry, combined_doc)
                 st.write(answer)
                 st.success("Assistant: Hope I am able to help your in respond to your client effectively ❤️ ")
