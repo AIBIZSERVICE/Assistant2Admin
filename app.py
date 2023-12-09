@@ -15,7 +15,7 @@ def main():
     st.subheader("J.A.R.V.I.S: Master, please go through steps before processing your input knowledge")
     
     with st.form("J.A.R.V.I.S: Master, please input Client PASSWORD"):
-        st.session_state['unique_id']= st.text_input("unique_id", value="", type="password")
+        st.session_state['unique_id'] = st.text_input("unique_id", value="", type="password")
         if st.form_submit_button("Submit"):
             st.session_state.prompt_history = []
             st.session_state.df = None
@@ -32,7 +32,7 @@ def main():
         with st.spinner('Wait for it...'):
             st.write("Client Unique ID")
             
-            # Creating a unique ID, so that we can use to query and get only the user uploaded documents from PINECONE vector store
+            # Creating a unique ID, so that we can use to query and get only the user uploaded documents from vector store
             #st.session_state['unique_id']=uuid.uuid4().hex
             st.write(st.session_state['unique_id'])            
             
