@@ -70,14 +70,6 @@ def get_summary(current_doc):
 
     return summary
 
-# Combined the relevant reference for answer the enquiry
-def combined_doc(relevant_docs):
-    text = ""
-    for item in range(len(relevant_docs)):
-        text = text + str(relevant_docs[item])
-    return text
-
-
 # LLM Q&A Code
 from langchain.chains.question_answering import load_qa_chain
 from langchain.schema import (
@@ -89,6 +81,6 @@ llm = OpenAI()
 chain = load_qa_chain(llm, chain_type="stuff")
 
 # This function will help us get the answer from the relevant docs matching input text
-def question_answer(combined_doc, enquiry):
-    answer = chain.run(input_documents=combined_doc, question=enquiry)
+def question_answer(relevant_docs, enquiry):
+    answer = chain.run(input_documents=relevant_docs, question=enquiry)
     return answer
