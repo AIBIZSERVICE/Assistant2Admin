@@ -20,7 +20,7 @@ def main():
             st.session_state.prompt_history = []
             st.session_state.df = None
             st.success('Assistant: Saved Authenticated Client identity in me')    
-    equiry = st.text_area("Assitant: Please post the issues rasied by the client here...",key="1")
+    enquiry = st.text_area("Assitant: Please post the issues rasied by the client here...",key="1")
     document_count = st.text_input("Assistant: Master, how many numbers of 'REFERENCE' you expect me to find to tackle the issue",key="2")
     
     # Upload the Resumes (pdf files)
