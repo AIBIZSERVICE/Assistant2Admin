@@ -73,8 +73,8 @@ def get_summary(current_doc):
 # Combined the relevant reference for answer the enquiry
 def combined_text(relevant_docs):
     text = ""
-    for item in range(len(relavant_docs)):
-        text = text + relavant_docs[item]
+    for item in range(len(relevant_docs)):
+        text = text + relevant_docs[item]
     return text
 
 # Load pre-trained NLP model for question answering
