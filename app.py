@@ -73,7 +73,7 @@ def main():
                     st.write("**Summary** : "+summary)
 
             # Get the answer
-            combined_doc = combined_text(relevant_docs)          
+            combined_doc = combined_doc(relevant_docs)          
             answer = question_answer(enquiry, combined_doc)
             st.write(answer)
             st.success("J.A.R.V.I.S: Hope I am able to help you in respond to your client effectively ❤️ ")
