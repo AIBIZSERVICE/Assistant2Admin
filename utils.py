@@ -79,5 +79,5 @@ def combined_doc(relevant_docs):
 
 # This function will help us get the answer from the relevant docs matching input text
 def question_answer(combined_doc, enquiry):
-    response = chain.run(input_documents=combined_doc, question=enquiry)
+    answer = chain.run(input_documents=combined_doc, question=enquiry)
     return answer
