@@ -1,8 +1,8 @@
 ---
-title: J.A.R.V.I.S.1.01
+title: Assistant2Adaner
 emoji: 😻
-colorFrom: blue
-colorTo: gray
+colorFrom: pink
+colorTo: purple
 sdk: streamlit
 sdk_version: 1.29.0
 app_file: app.py
