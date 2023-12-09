@@ -68,16 +68,17 @@ def main():
 
                 # Introducing Expander feature
                 with st.expander('Show me 👀'): 
-                    
                     # Gets the summary of the current item using 'get_summary' function that we have created which uses LLM & Langchain chain
                     summary = get_summary(relevant_docs[item])
                     st.write("**Summary** : "+summary)
 
             # Get the answer
-                combined_doc = combined_text(relevant_docs)
-                answer = answer_question(enquiry, combined_doc)
-                st.write(answer)
-                st.success("J.A.R.V.I.S: Hope I am able to help you in respond to your client effectively ❤️ ")
+            combined_doc = combined_text(relevant_docs)
+            embeddings=create_embeddings_load_data()
+            db=push_to_store(embeddings,combined_doc)            
+            answer = answer_question(enquiry, db)
+            st.write(answer)
+            st.success("J.A.R.V.I.S: Hope I am able to help you in respond to your client effectively ❤️ ")
 
 
 # Invoking main function
