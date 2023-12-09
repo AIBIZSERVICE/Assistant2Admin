@@ -9,3 +9,5 @@ pypdf
 sentence_transformers
 faiss-cpu
 uuid
+pdfplumber 
+transformers

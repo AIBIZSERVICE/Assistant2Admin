@@ -5,13 +5,13 @@ import uuid
 
 #Creating Unique ID
 if 'unique_id' not in st.session_state:
-    st.session_state['unique_id'] =''
+    st.session_state['unique_id'] = ''
     
 
 def main():
     load_dotenv()
     st.set_page_config(page_title="Digital Assistant with AI Capability")
-    st.title("Assistant: Hello Master - Welcome back ...💁 ")
+    st.title("Assistant: Master - Welcome back ...💁 ")
     st.subheader("Assistant: Master, please go through steps before processing your input knowledge")
     
     with st.form("Assistant: Master, please input Client PASSWORD"):
@@ -20,9 +20,9 @@ def main():
             st.session_state.prompt_history = []
             st.session_state.df = None
             st.success('Assistant: Saved Authenticated Client identity in me')    
-    
-    job_description = st.text_area("Assitant: Please post the issues rasied by the client here...",key="1")
+    equiry = st.text_area("Assitant: Please post the issues rasied by the client here...",key="1")
     document_count = st.text_input("Assistant: Master, how many numbers of 'REFERENCE' you expect me to find to tackle the issue",key="2")
+    
     # Upload the Resumes (pdf files)
     pdf = st.file_uploader("Assistant: Master, please upload knowledge material here, only PDF files allowed", type=["pdf"],accept_multiple_files=True)
 
@@ -32,49 +32,54 @@ def main():
         with st.spinner('Wait for it...'):
             st.write("Your client ID")
             
-            #Creating a unique ID, so that we can use to query and get only the user uploaded documents from PINECONE vector store
+            # Creating a unique ID, so that we can use to query and get only the user uploaded documents from PINECONE vector store
             #st.session_state['unique_id']=uuid.uuid4().hex
             st.write(st.session_state['unique_id'])            
             
-            #Create a documents list out of all the user uploaded pdf files
+            # Create a documents list out of all the user uploaded pdf files
             final_docs_list=create_docs(pdf,st.session_state['unique_id'])
 
             docs = split_docs(final_docs_list)
             
-            #Displaying the count of resumes that have been uploaded
+            # Displaying the count of resumes that have been uploaded
             st.write("*Resumes uploaded* :"+str(len(docs)))
             
-            #Create embeddings instance
+            # Create embeddings instance
             embeddings=create_embeddings_load_data()
 
-            #Push data to Vector Store
+            # Push data to Vector Store
             db=push_to_store(embeddings,docs)
 
-            #Fecth relavant documents from Vector Store
-            relavant_docs=get_similar_docs(job_description,document_count,db, embeddings,st.session_state['unique_id'])
+            # Fecth relavant documents from Vector Store
+            relavant_docs=get_similar_docs(enquiry,document_count,db, embeddings,st.session_state['unique_id'])
 
             #st.write(relavant_docs)
 
-            #Introducing a line separator
+            # Introducing a line separator
             st.write(":heavy_minus_sign:" * 30)
 
-            #For each item in relavant docs - we are displaying some info of it on the UI
+            # For each item in relavant docs - we are displaying some info of it on the UI
             for item in range(len(relavant_docs)):
                 
                 st.subheader("👉 "+str(item+1))
 
-                #Displaying Filepath
+                # Displaying Filepath
                 st.write("**File** : "+relavant_docs[item].metadata['name'])
 
-                #Introducing Expander feature
+                # Introducing Expander feature
                 with st.expander('Show me 👀'): 
-                    #Gets the summary of the current item using 'get_summary' function that we have created which uses LLM & Langchain chain
+                    
+                    # Gets the summary of the current item using 'get_summary' function that we have created which uses LLM & Langchain chain
                     summary = get_summary(relavant_docs[item])
                     st.write("**Summary** : "+summary)
 
-        st.success("Assistant: Hope I am able to help your in respond to your client effectively❤️")
+            # Get the answer
+                combined_doc = combined_text(relavant_docs)
+                answer = answer_question(enquiry, combined_doc)
+                st.write(answer)
+                st.success("Assistant: Hope I am able to help your in respond to your client effectively ❤️ ")
 
 
-#Invoking main function
+# Invoking main function
 if __name__ == '__main__':
     main()
