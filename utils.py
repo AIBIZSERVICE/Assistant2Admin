@@ -71,13 +71,13 @@ def get_summary(current_doc):
     return summary
 
 # Combined the relevant reference for answer the enquiry
-def combined_text(relevant_docs):
+def combined_doc(relevant_docs):
     text = ""
     for item in range(len(relevant_docs)):
         text = text + str(relevant_docs[item])
     return text
 
-# Load pre-trained NLP model for question answering
-nlp = pipeline("question-answering")
-def answer_question(question, context):
-    return nlp(question=question, context=context)
+# This function will help us get the answer from the relevant docs matching input text
+def question_answer(combined_doc, enquiry):
+    response = chain.run(input_documents=combined_doc, question=enquiry)
+    return answer
